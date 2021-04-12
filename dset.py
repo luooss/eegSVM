@@ -9,7 +9,7 @@ class EEGDataset:
                 continue
 
             fname = f[:-4]
-            print("Processing {:s}".format(f))
+            print("Loading {:s}".format(f))
             if fname == "train_data":
                 self.train_data = np.load(os.path.join(dir, f))
             elif fname == "train_label":
@@ -19,8 +19,16 @@ class EEGDataset:
             elif fname == "test_label":
                 self.test_label = np.load(os.path.join(dir, f))
             
-        print("Dataset load done")
+        print("Dataset load done\n")
     
     def describeData(self):
-        print("Training Data size: {:d}".format(self.train_data.shape[0]))
-        print("Test Data size: {:d}".format(self.test_data.shape[0]))
+        print("Training data:")
+        print("Total: {:d}, Class -1: {:d}, Class 0: {:d}, Class 1: {:d}\n".format(self.train_label.shape[0],
+                                                                                 (self.train_label==-1).sum(),
+                                                                                 (self.train_label==0).sum(),
+                                                                                 (self.train_label==1).sum()))
+        print("Test data:")
+        print("Total: {:d}, Class -1: {:d}, Class 0: {:d}, Class 1: {:d}\n".format(self.test_label.shape[0],
+                                                                                 (self.test_label==-1).sum(),
+                                                                                 (self.test_label==0).sum(),
+                                                                                 (self.test_label==1).sum()))
